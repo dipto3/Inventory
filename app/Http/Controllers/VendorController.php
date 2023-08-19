@@ -69,6 +69,20 @@ class VendorController extends Controller
            return response()->json(['status'=>'fail','message'=>'Vendor Update fail']);
     }
 
+    public function destroy($id){
+
+        $user = Auth::user();
+        $vendor = Vendor::where([['id', $id], ['userId', $user->id]])->first();
+        if($vendor){
+            $vendor->delete();
+        }
+
+        if($vendor){
+            return response()->json(['status'=>'success','message'=>'vendor Deleted Successfully']);
+           }
+           return response()->json(['status'=>'fail','message'=>'vendor Delete fail']);
+    }
+
 
 
 }

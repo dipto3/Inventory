@@ -41,4 +41,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/all-vendor', [VendorController::class, 'index']);
     Route::get('/vendor/{id}', [VendorController::class, 'show']);
     Route::post('/update-vendor', [VendorController::class, 'update']);
+    Route::post('/vendor/{id}', [VendorController::class, 'destroy']);
 });
