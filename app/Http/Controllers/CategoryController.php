@@ -24,7 +24,7 @@ class CategoryController extends Controller
     }
 
     public function index(){
-        
+
         $loggedInUser = Auth::user();
         $categories = Category::where([['status', 1], ['user_id' , $loggedInUser->id]])->get();
 
@@ -51,5 +51,19 @@ class CategoryController extends Controller
             return response()->json(['status'=>'success','message'=>'Category Update Successfully','data'=>$category]);
            }
            return response()->json(['status'=>'fail','message'=>'Category Update fail']);
+    }
+
+    public function destroy($id){
+
+        $user = Auth::user();
+        $category = Category::where([['id', $id], ['user_id', $user->id]])->first();
+        if($category){
+            $category->delete();
+        }
+
+        if($category){
+            return response()->json(['status'=>'success','message'=>'Category Deleted Successfully']);
+           }
+           return response()->json(['status'=>'fail','message'=>'Category Delete fail']);
     }
 }

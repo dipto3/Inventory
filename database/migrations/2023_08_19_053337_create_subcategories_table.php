@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('user_id');
             // $table->string('cat_id');
-            $table->foreignId('categoryId')->constrained('categories')->onUpdate('cascade');
+            $table->foreignId('categoryId')->onUpdate('cascade');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });
