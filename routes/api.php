@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
-
+use App\Http\Controllers\VendorController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,4 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/subcategory/{id}', [SubcategoryController::class, 'show']);
     Route::post('/update-subcategory/{id}', [SubcategoryController::class, 'update']);
     Route::post('/subcategory/{id}', [SubcategoryController::class, 'destroy']);
+
+    Route::post('/create-vendor', [VendorController::class, 'store']);
+    Route::get('/all-vendor', [VendorController::class, 'index']);
 });
