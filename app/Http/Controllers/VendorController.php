@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class VendorController extends Controller
 {
-   public function store(Request $request){
+    public function store(Request $request){
 
     $loggedInUser = Auth::user();
         $vendor = Vendor::create([
-
+ 
             'vendor'=>$request->vendor,
             'first_name' =>$request->first_name,
             'last_name' =>$request->last_name,
@@ -31,27 +31,24 @@ class VendorController extends Controller
            return response()->json(['status'=>'fail','message'=>'Vendor Create fail']);
    }
 
-   public function index(){
+    public function index(){
 
     $loggedInUser = Auth::user();
     $vendors = Vendor::where([['status', 1], ['userId' , $loggedInUser->id]])->get();
-
     return response()->json(['message'=>'All Vendors ','data'=>$vendors]);
     }
 
     public function show($id){
-
         $vendor = Vendor::where('id',$id)->first();
         return response()->json(['message'=>'Success ','data'=>$vendor]);
     }
 
     public function update(Request $request){
-
         $user = Auth::user();
         $vendor= Vendor::where([['id', $request->id], ['userId', $user->id]])->first();
         if($vendor){
             $vendor->update([
-                'vendor'=>$request->vendor ?? $vendor->vendor,
+                'vendor'=>$request->vendor ??$vendor->vendor,
                 'first_name' =>$request->first_name ??$vendor->first_name,
                 'last_name' =>$request->last_name ??$vendor->last_name,
                 'email'=>$request->email ??$vendor->email,
@@ -66,7 +63,7 @@ class VendorController extends Controller
         if($vendor){
             return response()->json(['status'=>'success','message'=>'Vendor Update Successfully','data'=>$vendor]);
            }
-           return response()->json(['status'=>'fail','message'=>'Vendor Update fail']);
+            return response()->json(['status'=>'fail','message'=>'Vendor Update fail']);
     }
 
     public function destroy($id){
@@ -76,13 +73,10 @@ class VendorController extends Controller
         if($vendor){
             $vendor->delete();
         }
-
         if($vendor){
             return response()->json(['status'=>'success','message'=>'vendor Deleted Successfully']);
            }
-           return response()->json(['status'=>'fail','message'=>'vendor Delete fail']);
+            return response()->json(['status'=>'fail','message'=>'vendor Delete fail']);
     }
-
-
 
 }

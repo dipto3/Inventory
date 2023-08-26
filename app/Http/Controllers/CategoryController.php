@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -15,7 +16,7 @@ class CategoryController extends Controller
             'name'=>$request->name,
             'description' =>$request->description,
             'user_id' => $loggedInUser->id,
-
+            'code' =>Str::lower(Str::random(6)),
         ]);
         if($category){
             return response()->json(['status'=>'success','message'=>'Category Create Successfully','data'=>$category]);
