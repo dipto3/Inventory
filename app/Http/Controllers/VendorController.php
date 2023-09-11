@@ -12,7 +12,7 @@ class VendorController extends Controller
 
     $loggedInUser = Auth::user();
         $vendor = Vendor::create([
- 
+
             'vendor'=>$request->vendor,
             'first_name' =>$request->first_name,
             'last_name' =>$request->last_name,
@@ -36,6 +36,7 @@ class VendorController extends Controller
     $loggedInUser = Auth::user();
     $vendors = Vendor::where([['status', 1], ['userId' , $loggedInUser->id]])->get();
     return response()->json(['message'=>'All Vendors ','data'=>$vendors]);
+
     }
 
     public function show($id){

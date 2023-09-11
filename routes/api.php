@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\EmailVerificationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\VendorController;
@@ -25,6 +26,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
+    Route::post('email-verification',[EmailVerificationController::class, 'email_verification']);
+    Route::get('email-verification',[EmailVerificationController::class, 'sendEmailVerification']);
+
     Route::post('/create-category', [CategoryController::class, 'store']);
     Route::get('/all-category', [CategoryController::class, 'index']);
     Route::get('/category/{id}', [CategoryController::class, 'show']);
@@ -42,5 +46,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/vendor/{id}', [VendorController::class, 'show']);
     Route::post('/update-vendor', [VendorController::class, 'update']);
     Route::post('/vendor/{id}', [VendorController::class, 'destroy']);
+
+    Route::post('/create-item',[ItemController::class,'create']);
 
 });

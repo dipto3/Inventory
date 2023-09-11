@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
 use Illuminate\Auth\Events\Registered;
+use App\Notifications\EmailVerificationNotification;
 
 class AuthController extends Controller
 {
@@ -20,6 +21,7 @@ class AuthController extends Controller
 
         $success["token"] =$user->createToken('user')->plainTextToken;
         $success["name"] =$user->name;
+        $user->notify(new EmailVerificationNotification());
         if($user){
             return response()->json(['status'=>'success','message'=>'User Create Successfully','data'=>$user,'token'=>$success]);
            }
